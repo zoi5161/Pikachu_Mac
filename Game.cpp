@@ -73,7 +73,7 @@ bool endFinish = true, win = false;
 // Game
 bool endGame = true, confirm = false;
 int height = heightS, width = widthS;
-int dir, x, y, randomObj, score = 100, prevX, prevY, last = 0, hz = 0, round = 1, totalTime = 100;
+int dir, x, y, randomObj, score = 100, prevX, prevY, last = 0, hz = 0, gameRound = 1, totalTime = 100;
 int passingHeight, passingWidth;
 int hour, minute, second, millisec;
 
@@ -178,7 +178,7 @@ int main()
 		{
 			inputWarn(dirWarn);
 			drawWarn(chooseWarnNewGame, backgroundWarn, backgroundNext, backgroundGMReturn);
-			logicWarnNewGame(dirWarn, chooseWarnNewGame, newGame, prevMode, last, round, endGM);
+			logicWarnNewGame(dirWarn, chooseWarnNewGame, newGame, prevMode, last,gameRound, endGM);
 		}
 			
 		while(!endGM)
@@ -193,7 +193,7 @@ int main()
 
 					if(modeHard == false)
 					{
-						if(round == 1)
+						if(gameRound == 1)
 						{
 							height = heightS;
 							width = widthS;
@@ -201,7 +201,7 @@ int main()
 							passingWidth = 55;
 							backgroundSmall(backgroundGame);
 						}
-						else if(round == 2)
+						else if(gameRound == 2)
 						{
 							height = heightM;
 							width = widthM;
@@ -209,7 +209,7 @@ int main()
 							passingWidth = 55;
 							backgroundMedium(backgroundGame);
 						}
-						else if(round == 3)
+						else if(gameRound == 3)
 						{
 							height = heightB;
 							width = widthB;
@@ -246,7 +246,7 @@ int main()
 						}
 					}
 
-					setupGame(height, width, x, y, prevX, prevY, score, choosePause, confirm, modeHard, round, Map, last, dir, hour, minute, second, millisec, totalTime, obj, randomObj, idxObj, idxNum, line, lineOut, lineEnd, greenBlock, redBlock);
+					setupGame(height, width, x, y, prevX, prevY, score, choosePause, confirm, modeHard,gameRound, Map, last, dir, hour, minute, second, millisec, totalTime, obj, randomObj, idxObj, idxNum, line, lineOut, lineEnd, greenBlock, redBlock);
 				}
 				
 				while(!endGame)
@@ -255,7 +255,7 @@ int main()
 					{
 						last = 0;
 						endGame = true;
-						round = 3;
+						gameRound = 3;
 						win = false;
 						endFinish = false;
 						prevMode = 0;
@@ -266,7 +266,7 @@ int main()
 						}
 						break;
 					}
-					draw(height, width, passingHeight, passingWidth, x, y, prevX, prevY, hour, minute, second, score, last, round, modeHard, boxConfirm, backgroundGame, idxObj, idxNum, line, lineOut, lineEnd, lineHelp, resetNum, resetLine, resetLineOut, resetLineEnd, greenBlock, redBlock);
+					draw(height, width, passingHeight, passingWidth, x, y, prevX, prevY, hour, minute, second, score, last,gameRound, modeHard, boxConfirm, backgroundGame, idxObj, idxNum, line, lineOut, lineEnd, lineHelp, resetNum, resetLine, resetLineOut, resetLineEnd, greenBlock, redBlock);
 					input(dir);
 					logic(ppxy, height, width, dir, last, score, endPause, endGame, endMap, confirm, obj, randomObj, idxObj, idxNum, line, lineOut, lineEnd, lineHelp, resetNum, resetLine, resetLineOut, resetLineEnd, greenBlock, redBlock);
 					if(!endPause)
@@ -282,7 +282,7 @@ int main()
 						runTime(hour, minute, second, millisec, endGame);
 				}
 
-				if(round == 3 && last == 0)
+				if(gameRound == 3 && last == 0)
 				{
 					win = true;
 					prevMode = 0;
@@ -298,21 +298,21 @@ int main()
 				{
 					if(!modeHard)
 					{
-						if(round == 3)
-							round = 1;
+						if(gameRound == 3)
+							gameRound = 1;
 						else if(confirm == true)
 						{
-							round++;
+							gameRound++;
 							endGame = false;
 						}
 						else if(confirm == false)
-							round++;
+							gameRound++;
 					}
 					else if(confirm == true)
 						endGame = false;
 				}
 				else if(last == 0 && !modeHard)
-					round++;
+					gameRound++;
 			}
 
 			if(!endGame)
@@ -340,7 +340,7 @@ int main()
 				{
 					inputWarn(dirWarn);
 					drawWarn(chooseWarn, backgroundWarn, backgroundNext, backgroundGMReturn);
-					logicWarn(dirWarn, chooseWarn, endWarn, modeHard, prevMode, endGame, endMap, last, round);
+					logicWarn(dirWarn, chooseWarn, endWarn, modeHard, prevMode, endGame, endMap, last,gameRound);
 				}
 			}
 		}
